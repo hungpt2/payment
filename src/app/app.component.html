@@ -1,8 +1,5 @@
 <div class="bg-light">
   <div class="container-fluid max-width-600px">
-      <div *ngFor="let course of coursesObservable | async">
-        {{course}}
-      </div>
     <div class="h1 text-center">Add Payment</div>
     <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
       <div class="card border-0 mb-3">
@@ -28,8 +25,10 @@
               <span class="text-danger">*</span>
             </div>
             <div class="input-group">
-                <input type="text" class="form-control" formControlName="payment" name="Payment Type" required
+                <select type="text" class="form-control" formControlName="payment" name="Payment Type" required
                 [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.payment.invalid }">
+                  <option *ngFor="let item of getTypeList | async" [(value)]="item.value">{{item.label}}</option>
+                </select>
             </div>
             <small *ngIf="submitted && paymentForm.controls.payment.invalid" class="text-danger">
                 <div *ngIf="paymentForm.controls.payment.invalid">Payment Type is required</div>
