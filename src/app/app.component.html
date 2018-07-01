@@ -1,0 +1,130 @@
+<div class="bg-light">
+  <div class="container-fluid max-width-600px">
+      <div *ngFor="let course of coursesObservable | async">
+        {{course}}
+      </div>
+    <div class="h1 text-center">Add Payment</div>
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+      <div class="card border-0 mb-3">
+        <div class="card-body">
+          <div>Payment System Name
+            <span class="text-danger">*</span>
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter Name Here" formControlName="paymentName" name="Payment System Name" required
+            [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.paymentName.invalid }">
+            <i class="fa fa-user-circle-o line-height-38-px icon-name-payment text-secondary"></i>
+          </div>
+          <small *ngIf="submitted && paymentForm.controls.paymentName.invalid" class="text-danger">
+              <div *ngIf="paymentForm.controls.paymentName.invalid">Payment Type is required</div>
+          </small>
+        </div>
+      </div>
+      <div class="card border-0 mb-3">
+        <div class="card-body">
+          <div class="h5 text-left pb-3 border-bottom mb-3">Gateway</div>
+          <div class="pb-3">
+            <div>Payment Type
+              <span class="text-danger">*</span>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" formControlName="payment" name="Payment Type" required
+                [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.payment.invalid }">
+            </div>
+            <small *ngIf="submitted && paymentForm.controls.payment.invalid" class="text-danger">
+                <div *ngIf="paymentForm.controls.payment.invalid">Payment Type is required</div>
+            </small>
+          </div>
+          <div class="pb-3">
+            <div>Merchant Accoud ID
+              <span class="text-danger">*</span>
+            </div>
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="id" name="Merchant Accoud ID" required
+              [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.id.invalid }">
+            </div>
+            <small *ngIf="submitted && paymentForm.controls.id.invalid" class="text-danger">
+                <div *ngIf="paymentForm.controls.id.invalid">Merchant Accoud ID is required</div>
+            </small>
+          </div>
+          <div class="pb-3">
+            <div>Salt
+              <span class="text-danger">*</span>
+            </div>
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="salt" name="Salt" required
+              [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.salt.invalid }">
+            </div>
+            <small *ngIf="submitted && paymentForm.controls.salt.invalid" class="text-danger">
+                <div *ngIf="paymentForm.controls.salt.invalid">Salt is required</div>
+            </small>
+          </div>
+          <div class="pb-3">
+            <div>Key
+              <span class="text-danger">*</span>
+            </div>
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="key" name="Key" required
+              [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.key.invalid }">
+            </div>
+            <small *ngIf="submitted && paymentForm.controls.key.invalid" class="text-danger">
+                <div *ngIf="paymentForm.controls.key.invalid">Merchant Accoud ID is required</div>
+            </small>
+          </div>
+          <div class="pb-3">
+            <div>Username
+              <span class="text-danger">*</span>
+            </div>
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="user" name="Username" required
+              [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.user.invalid }">
+            </div>
+            <small *ngIf="submitted && paymentForm.controls.user.invalid" class="text-danger">
+                <div *ngIf="paymentForm.controls.user.invalid">Merchant Accoud ID is required</div>
+            </small>
+          </div>
+          <div class="pb-3">
+            <div>Password
+              <span class="text-danger">*</span>
+            </div>
+            <div class="input-group">
+              <input type="password" class="form-control" formControlName="pass" name="Password" required
+              [ngClass]="{ 'is-invalid': submitted && paymentForm.controls.pass.invalid }">
+              <i class="fa fa-unlock-alt line-height-38-px icon-name-payment text-secondary"></i>
+            </div>
+            <small *ngIf="submitted && paymentForm.controls.pass.invalid" class="text-danger">
+                <div *ngIf="paymentForm.controls.pass.invalid">Merchant Accoud ID is required</div>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="card border-0 mb-3">
+        <div class="card-body">
+          <div class="h5 text-left pb-3 border-bottom mb-3">Gateway</div>
+          <div>
+            <label>
+              <input type="checkbox" formControlName="del">
+              Endable Delivery
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" formControlName="pickUp">
+              Endable PickUp
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="checkbox" formControlName="tableRes">
+              Table Reservation
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mb-5">
+        <button type="submit" class="btn btn-primary ml-2 mr-2">Submit</button>
+        <button type="button" class="btn btn-secondary ml-2 mr-2" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
