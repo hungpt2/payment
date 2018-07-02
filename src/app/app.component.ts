@@ -43,38 +43,36 @@ export class AppComponent {
   }
 
   onSubmit() {
-    if (!this.submitted) {
-      this.submitted = true;
-      if (this.paymentForm.valid) {
-        const formValue = this.paymentForm.value;
-        let tempForm = {
-          id: Math.random().toString(36).substring(2),
-          name: formValue.paymentName,
-          gateway: {
-            payment: formValue.payment,
-            id: formValue.id,
-            key: formValue.key,
-            salt: formValue.salt,
-            user: formValue.user,
-            pass: formValue.pass
-          },
-          applyFor: {
-            del: formValue.del,
-            pickUp: formValue.pickUp,
-            tableRes: formValue.tableRes
-          }
+    console.log('submit')
+    this.submitted = true;
+    console.log(this.submitted)
+    if (this.paymentForm.valid) {
+      const formValue = this.paymentForm.value;
+      let tempForm = {
+        id: Math.random().toString(36).substring(2),
+        name: formValue.paymentName,
+        gateway: {
+          payment: formValue.payment,
+          id: formValue.id,
+          key: formValue.key,
+          salt: formValue.salt,
+          user: formValue.user,
+          pass: formValue.pass
+        },
+        applyFor: {
+          del: formValue.del,
+          pickUp: formValue.pickUp,
+          tableRes: formValue.tableRes
         }
-        this.paymentService.storageFirebase(tempForm, (resolve) => {
-          console.log('all good', resolve);
-          this.submitted = false;
-        }, (reject) => {
-          console.log('error', reject);
-          this.submitted = false;
-        });
-        this.paymentForm.reset();
-      } else {
-        this.submitted = false;
       }
+      this.paymentService.storageFirebase(tempForm, (resolve) => {
+        console.log('all good', resolve);
+        this.submitted = false;
+      }, (reject) => {
+        console.log('error', reject);
+        this.submitted = false;
+      });
+      this.paymentForm.reset();
     }
   }
 }
