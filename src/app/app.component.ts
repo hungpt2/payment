@@ -64,9 +64,16 @@ export class AppComponent {
             tableRes: formValue.tableRes
           }
         }
-        this.paymentService.storageFirebase(tempForm);
-        this.submitted = false;
+        this.paymentService.storageFirebase(tempForm, (resolve) => {
+          console.log('all good', resolve);
+          this.submitted = false;
+        }, (reject) => {
+          console.log('error', reject);
+          this.submitted = false;
+        });
         this.paymentForm.reset();
+      } else {
+        this.submitted = false;
       }
     }
   }

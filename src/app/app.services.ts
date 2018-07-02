@@ -21,8 +21,12 @@ export class PaymentService {
     return this.list;
   }
 
-  storageFirebase(form) {
-    console.log(form)
-    this.paymentDatabase.list('payment').push(form);
+  storageFirebase(form, callback_success, callback_error) {
+    this.paymentDatabase.list('payment').push(form)
+    .then(resolve => {
+      callback_success(resolve);
+    }, reject => {
+      callback_error(reject);
+    });
   }
 }
