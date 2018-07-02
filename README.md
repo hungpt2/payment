@@ -5,6 +5,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Config Firebase
 
 Edit firebase on environment.ts and environment.prod file in environments folder.
+#OR
+Please provide me your gmail / firebase account so I can add you to my firebase console.
 
 ## Development server
 
