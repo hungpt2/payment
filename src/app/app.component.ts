@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Validators, NgForm, FormBuilder, FormGroup } from '@angular/forms';
-import { AngularFireList } from "angularfire2/database";
 import { Observable } from 'rxjs/Observable';
 import { payTypeList } from './app.model';
 import { PaymentService } from './app.services';
@@ -36,36 +35,33 @@ export class AppComponent {
       pickUp: [false],
       tableRes: [false]
     });
-    // this.coursesObservable = this.getList('getTypeList');
     this.getTypeList = this.paymentService.getList().valueChanges()
-    console.log('payTypeList', this.payTypeList)
   }
 
   onCancel() {
-    console.log('on cancel')
     this.paymentForm.reset();
   }
 
   onSubmit() {
-    console.log('on submit')
     if (!this.submitted) {
       this.submitted = true;
       if (this.paymentForm.valid) {
+        const formValue = this.paymentForm.value;
         let tempForm = {
           id: Math.random().toString(36).substring(2),
-          name: this.paymentForm.value.paymentName,
+          name: formValue.paymentName,
           gateway: {
-            payment: this.paymentForm.value.payment,
-            id: this.paymentForm.value.id,
-            key: this.paymentForm.value.key,
-            salt: this.paymentForm.value.salt,
-            user: this.paymentForm.value.user,
-            pass: this.paymentForm.value.pass
+            payment: formValue.payment,
+            id: formValue.id,
+            key: formValue.key,
+            salt: formValue.salt,
+            user: formValue.user,
+            pass: formValue.pass
           },
           applyFor: {
-            del: this.paymentForm.value.del,
-            pickUp: this.paymentForm.value.pickUp,
-            tableRes: this.paymentForm.value.tableRes
+            del: formValue.del,
+            pickUp: formValue.pickUp,
+            tableRes: formValue.tableRes
           }
         }
         this.paymentService.storageFirebase(tempForm);
