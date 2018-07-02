@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Validators, NgForm, FormBuilder, FormGroup } from '@angular/forms';
-import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
-import { FirebaseListObservable } from "angularfire2/database-deprecated";
+import { AngularFireList } from "angularfire2/database";
 import { Observable } from 'rxjs/Observable';
-import {  Payment,  SelectFormVal,  payTypeList } from './app.model';
+import { payTypeList } from './app.model';
+import { PaymentService } from './app.services';
 
 @Component({
   selector: 'app-root',
@@ -14,21 +14,16 @@ export class AppComponent {
   paymentForm: FormGroup;
   submitted = false;
   coursesObservable: Observable<any[]>;
-  list: AngularFireList<any[]>;
-  payment: AngularFireList<any[]>;
   getTypeList: any;
   payTypeList = payTypeList;
 
   constructor(
+    private paymentService: PaymentService,
     private formBuilder: FormBuilder,
-    private paymentStorage: AngularFireDatabase
-  ) {
-    this.list = paymentStorage.list('pay-list');
-    this.payment = paymentStorage.list('payment');
-  }
+  ) { }
 
   ngOnInit() {
-    this.setList(this.payTypeList);
+    this.paymentService.setList(this.payTypeList);
     this.paymentForm = this.formBuilder.group({
       paymentName: ['', Validators.required],
       payment: ['', Validators.required],
@@ -42,7 +37,7 @@ export class AppComponent {
       tableRes: [false]
     });
     // this.coursesObservable = this.getList('getTypeList');
-    this.getTypeList = this.getList().valueChanges()
+    this.getTypeList = this.paymentService.getList().valueChanges()
     console.log('payTypeList', this.payTypeList)
   }
 
@@ -73,23 +68,10 @@ export class AppComponent {
             tableRes: this.paymentForm.value.tableRes
           }
         }
-        this.storageFirebase(tempForm);
+        this.paymentService.storageFirebase(tempForm);
         this.submitted = false;
         this.paymentForm.reset();
       }
     }
-  }
-
-  storageFirebase(form) {
-    console.log(form)
-    this.paymentStorage.list('payment').push(form);
-  }
-
-  getList() {
-    return this.list;
-  }
-
-  setList(list) {
-    this.paymentStorage.object('pay-list').set(list)
   }
 }

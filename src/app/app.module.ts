@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { PaymentService } from './app.services';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     AngularFireAuthModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
